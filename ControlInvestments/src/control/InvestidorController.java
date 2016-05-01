@@ -36,7 +36,7 @@ public class InvestidorController{
             PreparedStatement pst = conecta.conn.prepareStatement(sql);
             pst.setString(1, null);
             pst.setString(2, nome);
-            pst.executeUpdate();
+            pst.execute();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(InvestidorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,4 +45,19 @@ public class InvestidorController{
         conecta.desconecta();
     }
     
+    public void deletarInvestidor(String nome){
+        
+        ConectionFactory conecta = new ConectionFactory();
+        conecta.getConnection();
+        
+        try{
+            String sql = "delete from investidor WHERE nome = '" +nome+"'";
+            PreparedStatement pst = conecta.conn.prepareStatement(sql);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao Conectar! \n Erro: " + ex.getMessage());
+        }
+        
+    }
 }
