@@ -2,12 +2,15 @@
 package view;
 
 import control.InvestidorController;
+import control.ModeloTabela;
 import database.ConectionFactory;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import model.Investidor;
 
 /**
@@ -21,6 +24,7 @@ public class frmCadInvestidor extends javax.swing.JFrame {
      */
     public frmCadInvestidor() {
         initComponents();
+        preencherTabela();
     }
 
     
@@ -42,7 +46,7 @@ public class frmCadInvestidor extends javax.swing.JFrame {
         jButtonSair = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableEstado = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Investidor");
@@ -83,16 +87,16 @@ public class frmCadInvestidor extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEstado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null}
+                {},
+                {}
             },
             new String [] {
-                "Nome do Investidor"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableEstado);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,6 +193,39 @@ public class frmCadInvestidor extends javax.swing.JFrame {
         //conecta.executaSQL("delete from investidor where nome = '" + jTextFieldNome.getText() + "' ");
     }//GEN-LAST:event_jButtonDeletarActionPerformed
 
+    public void preencherTabela(){
+        ConectionFactory conecta = new ConectionFactory();
+        conecta.getConnection();
+        
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"id","nome"};
+        
+        String SQL = "SELECT * FROM investidor";
+        conecta.executaSQL(SQL);
+        
+        try{
+            conecta.rs.first();
+            do{
+                dados.add(new Object[]{conecta.rs.getInt("id"), conecta.rs.getString("nome")});
+            }while(conecta.rs.next());
+        }catch(SQLException ex){
+            Logger.getLogger(frmCadInvestidor.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Preencher o ArrayList! \n Erro: " + ex.getMessage());
+        }
+        
+        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+        jTableEstado.setModel(modelo);
+        jTableEstado.getColumnModel().getColumn(0).setPreferredWidth(80);//tamanho do item em pixel
+        jTableEstado.getColumnModel().getColumn(0).setResizable(false);//não vai ser redimensionavel
+        
+        jTableEstado.getColumnModel().getColumn(1).setPreferredWidth(313);//tamanho do item em pixel
+        jTableEstado.getColumnModel().getColumn(1).setResizable(false);//não vai ser redimensionavel
+        
+        jTableEstado.getTableHeader().setReorderingAllowed(false);
+        jTableEstado.setAutoResizeMode(jTableEstado.AUTO_RESIZE_OFF);//não pode ser reorganizada
+        jTableEstado.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//selecionar apenas um item da tabela
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -233,7 +270,7 @@ public class frmCadInvestidor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableEstado;
     private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
 }

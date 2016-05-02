@@ -15,7 +15,7 @@ import model.Investidor;
  */
 public class InvestidorController{
     
-    private Investidor investidor;
+    /*private Investidor investidor;
 
     public Investidor getInvestidor() {
         return investidor;
@@ -23,7 +23,7 @@ public class InvestidorController{
 
     public void setInvestidor(Investidor investidor) {
         this.investidor = investidor;
-    }
+    }*/
     
     
     public void CadastrarInvestidor(String nome){
@@ -51,8 +51,9 @@ public class InvestidorController{
         conecta.getConnection();
         
         try{
-            String sql = "delete from investidor WHERE nome = '" +nome+"'";
+            String sql = "delete from investidor WHERE nome = ?";
             PreparedStatement pst = conecta.conn.prepareStatement(sql);
+            pst.setString(1, nome);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
         }catch(SQLException ex){

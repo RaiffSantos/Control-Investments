@@ -33,7 +33,7 @@ public class ConectionFactory {
         }
     }
     
-    /*public void executaSQL(String sql){
+    public void executaSQL(String sql){
         
         try {
             stm = conn.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
@@ -43,7 +43,7 @@ public class ConectionFactory {
             JOptionPane.showMessageDialog(null, "Erro no executaSQL! \n Erro: " + ex.getMessage());
         }
         
-    }*/
+    }
     
     public void desconecta(){
         try {
