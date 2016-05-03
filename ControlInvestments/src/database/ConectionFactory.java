@@ -18,7 +18,7 @@ public class ConectionFactory {
     
     public Statement stm;
     public ResultSet rs;
-    private String url = "jdbc:mysql://127.0.0.1/mydb";
+    private String url = "jdbc:mysql://127.0.0.1/controlinvestdb";
     private String user = "root";
     private String pass = "";
     public Connection conn;

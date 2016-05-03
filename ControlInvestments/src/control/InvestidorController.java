@@ -30,12 +30,13 @@ public class InvestidorController{
         
         ConectionFactory conecta = new ConectionFactory();
         conecta.getConnection();
-        String sql = "insert into investidor(id, nome) values(?,?)";
+        String sql = "insert into investidor(id, nome, totalinvestido) values(?,?,?)";
         
         try {
             PreparedStatement pst = conecta.conn.prepareStatement(sql);
             pst.setString(1, null);
             pst.setString(2, nome);
+            pst.setDouble(3, 0);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
         } catch (SQLException ex) {
