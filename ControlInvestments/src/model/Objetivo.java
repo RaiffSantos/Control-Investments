@@ -7,12 +7,20 @@ package model;
  */
 public class Objetivo {
     
+    private int id;
     private String nome;
     private String descricao;
     private double valor;
     private double atual;
-    //private Investimento investimento;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNome() {
         return nome;
     }

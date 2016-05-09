@@ -181,14 +181,16 @@ public class frmCadInvestidor extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
-        InvestidorController invest = new InvestidorController();        
-        invest.CadastrarInvestidor(jTextFieldNome.getText());
+        Investidor invest = new Investidor();
+        invest.setNome(jTextFieldNome.getText());
+        InvestidorController.getInstance().CadastrarInvestidor(invest);        
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
         // TODO add your handling code here:
-        InvestidorController invest = new InvestidorController();        
-        invest.deletarInvestidor(jTextFieldNome.getText());
+        Investidor invest = new Investidor();      
+        invest.setNome(jTextFieldNome.getText());
+        InvestidorController.getInstance().deletarInvestidor(invest);
         
         //conecta.executaSQL("delete from investidor where nome = '" + jTextFieldNome.getText() + "' ");
     }//GEN-LAST:event_jButtonDeletarActionPerformed

@@ -15,18 +15,17 @@ import model.Investidor;
  */
 public class InvestidorController{
     
-    /*private Investidor investidor;
-
-    public Investidor getInvestidor() {
-        return investidor;
+    private static InvestidorController investidorController;
+    
+    public static InvestidorController getInstance(){
+        if(investidorController == null){
+            investidorController = new InvestidorController();
+            return investidorController;
+        }
+        return investidorController;
     }
-
-    public void setInvestidor(Investidor investidor) {
-        this.investidor = investidor;
-    }*/
     
-    
-    public void CadastrarInvestidor(String nome){
+    public void CadastrarInvestidor(Investidor investidor){
         
         ConectionFactory conecta = new ConectionFactory();
         conecta.getConnection();
@@ -35,7 +34,7 @@ public class InvestidorController{
         try {
             PreparedStatement pst = conecta.conn.prepareStatement(sql);
             pst.setString(1, null);
-            pst.setString(2, nome);
+            pst.setString(2, investidor.getNome());
             pst.setDouble(3, 0);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
@@ -46,7 +45,7 @@ public class InvestidorController{
         conecta.desconecta();
     }
     
-    public void deletarInvestidor(String nome){
+    public void deletarInvestidor(Investidor investidor){
         
         ConectionFactory conecta = new ConectionFactory();
         conecta.getConnection();
@@ -54,12 +53,16 @@ public class InvestidorController{
         try{
             String sql = "delete from investidor WHERE nome = ?";
             PreparedStatement pst = conecta.conn.prepareStatement(sql);
-            pst.setString(1, nome);
+            pst.setString(1, investidor.getNome());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Erro ao Conectar! \n Erro: " + ex.getMessage());
         }
+        
+    }
+    
+    public void editarInvestidor(){
         
     }
 }
