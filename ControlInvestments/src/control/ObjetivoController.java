@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Objetivo;
 
 /**
@@ -37,14 +38,30 @@ public class ObjetivoController {
             pst.setDouble(4, objetivo.getValor());
             pst.setDouble(5, 0);
             pst.execute();
-            
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(ObjetivoController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Conectar! \n Erro: " + ex.getMessage());
         }
         conecta.desconecta();
         return true;
     }
     
+    public static boolean deletarObjetivo(Objetivo objetivo){
+        
+        ConectionFactory conecta = new ConectionFactory();
+        conecta.getConnection();
+               
+        try {
+            String sql = "DELETE FROM objetivo WHERE id = ?";
+            PreparedStatement pst = conecta.conn.prepareStatement(sql);
+            pst.setInt(1, objetivo.getId());
+            pst.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ObjetivoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
     
     
 }
