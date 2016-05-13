@@ -7,6 +7,7 @@ package model;
  */
 public class Investimento {
     
+    private int id;
     private Investidor investidor;
     private Objetivo objetivo;
     private double valor;
@@ -22,7 +23,23 @@ public class Investimento {
         objetivo.setAtual(objetivo.getAtual() + valor);
         investidor.setTotalInvestido(investidor.getTotalInvestido() + valor);
     }
-   
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Objetivo getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(Objetivo objetivo) {
+        this.objetivo = objetivo;
+    }
+    
     public void setValor(double valor) {
         this.valor = valor;
     }
